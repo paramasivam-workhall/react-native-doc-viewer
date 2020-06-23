@@ -11,6 +11,7 @@
 #import <AVFoundation/AVFoundation.h>
 #import <AVKit/AVKit.h>
 #import "QLCustomPreviewItem.h"
+#import "QLCustomPreviewController.h"
 
 @implementation RNDocViewer
 CGFloat prog;
@@ -115,7 +116,7 @@ RCT_EXPORT_METHOD(openDoc:(NSArray *)array callback:(RCTResponseSenderBlock)call
         }
 
         dispatch_async(dispatch_get_main_queue(), ^{
-            QLPreviewController* cntr = [[QLPreviewController alloc] init];
+            QLCustomPreviewController* cntr = [[QLCustomPreviewController alloc] init];
             cntr.delegate = weakSelf;
             cntr.dataSource = weakSelf;
             if (callback) {
@@ -178,7 +179,7 @@ RCT_EXPORT_METHOD(openDocBinaryinUrl:(NSArray *)array callback:(RCTResponseSende
         weakSelf.fileUrl = tmpFileUrl;
 
         dispatch_async(dispatch_get_main_queue(), ^{
-            QLPreviewController* cntr = [[QLPreviewController alloc] init];
+            QLCustomPreviewController* cntr = [[QLCustomPreviewController alloc] init];
             cntr.delegate = weakSelf;
             cntr.dataSource = weakSelf;
             if (callback) {
@@ -229,7 +230,7 @@ RCT_EXPORT_METHOD(openDocb64:(NSArray *)array callback:(RCTResponseSenderBlock)c
         weakSelf.fileUrl = tmpFileUrl;
 
         dispatch_async(dispatch_get_main_queue(), ^{
-            QLPreviewController* cntr = [[QLPreviewController alloc] init];
+            QLCustomPreviewController* cntr = [[QLCustomPreviewController alloc] init];
             cntr.delegate = weakSelf;
             cntr.dataSource = weakSelf;
             if (callback) {
@@ -284,16 +285,16 @@ RCT_EXPORT_METHOD(playMovie:(NSString *)file callback:(RCTResponseSenderBlock)ca
     });
 }
 //Dismiss QuickViewController
-- (void)previewControllerDidDismiss:(QLPreviewController *)controller {
+- (void)previewControllerDidDismiss:(QLCustomPreviewController *)controller {
     [self DoneButtonClicked];
 }
 
-- (NSInteger) numberOfPreviewItemsInPreviewController: (QLPreviewController *) controller
+- (NSInteger) numberOfPreviewItemsInPreviewController: (QLCustomPreviewController *) controller
 {
     return 1;
 }
 
-- (id <QLPreviewItem>) previewController: (QLPreviewController *) controller previewItemAtIndex: (NSInteger) index
+- (id <QLPreviewItem>) previewController: (QLCustomPreviewController *) controller previewItemAtIndex: (NSInteger) index
 {
     if(self.optionalFileName) {
         QLCustomPreviewItem *previewItem = [[QLCustomPreviewItem alloc] initWithURL:self.fileUrl optionalFileName:self.optionalFileName];
