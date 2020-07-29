@@ -40,6 +40,18 @@ RCT_EXPORT_METHOD(statusProgress:(NSArray *)array callback:(RCTResponseSenderBlo
 }
 
 /**
+ * clearCache
+ */
+
+RCT_EXPORT_METHOD(clearCache:(NSString *)fileNameWithExt callback:(RCTResponseSenderBlock)callback)
+{
+    NSString *path = [NSString stringWithFormat:@"%@%@", NSTemporaryDirectory(), fileNameWithExt];
+//     RCTLogInfo(@"path %@", path);
+    [[NSFileManager defaultManager] removeItemAtPath:path error:NULL];
+    callback(nil);
+}
+
+/**
  * openDoc
  * open Base64 String
  * Parameters: NSArray
